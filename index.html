@@ -1,1 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendário Interativo</title>
+    <link href='https://fullcalendar.io/releases/fullcalendar/3.10.0/fullcalendar.min.css' rel='stylesheet' />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to right, yellow, black);
+        }
+        #calendar {
+            max-width: 900px;
+            margin: 40px auto;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div id='calendar'></div>
+</div>
+
+<!-- Modal para Compromissos -->
+<div class="modal fade" id="modalCompromisso" tabindex="-1" role="dialog" aria-labelledby="modalCompromissoLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalCompromissoLabel">Novo Compromisso</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Formulário para adicionar compromissos -->
+        <form>
+          <div class="form-group">
+            <label for="nome-compromisso">Nome do Compromisso:</label>
+            <input type="text" class="form-control" id="nome-compromisso">
+          </div>
+          <div class="form-group">
+            <label for="data-compromisso">Data:</label>
+            <input type="date" class="form-control" id="data-compromisso">
+          </div>
+          <div class="form-group">
+            <label for="hora-compromisso">Hora:</label>
+            <input type="time" class="form-control" id="hora-compromisso">
+          </div>
+          <div class="form-group">
+            <label for="observacoes-compromisso">Observações:</label>
+            <textarea class="form-control" id="observacoes-compromisso"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Salvar Compromisso</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src='https://fullcalendar.io/releases/fullcalendar/3.10.0/lib/moment.min.js'></script>
+<script src='https://fullcalendar.io/releases/fullcalendar/3.10.0/lib/jquery.min.js'></script>
+<script src='https://fullcalendar.io/releases/fullcalendar/3.10.0/fullcalendar.min.js'></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#calendar').fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay'
+            },
+            locale: 'pt-br',
+            defaultDate: new Date(),
+            navLinks: true,
+            editable: true,
+            eventLimit: true,
+            dayClick: function(date, jsEvent, view) {
+                $('#modalCompromisso').modal('show');
+                $('#data-compromisso').val(date.format());
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
 <!-- Seu HTML aqui -->
